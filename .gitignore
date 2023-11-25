@@ -1,0 +1,60 @@
+# dependencies
+node_modules/
+
+# Expo
+.expo/
+dist/
+web-build/
+
+# Native
+*.orig.*
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+
+# Metro
+.metro-health-check*
+
+# debug
+npm-debug.*
+yarn-debug.*
+yarn-error.*
+
+# macOS
+.DS_Store
+*.pem
+
+# local env files
+.env*.local
+
+# typescript
+*.tsbuildinfo
+.tamagui/tamagui.config.json
+
+
+# Android Studio generated files and folders
+captures/
+.externalNativeBuild/
+.cxx/
+*.apk
+*.aab
+output-metadata.json
+
+# Gradle files
+.gradle/
+build/
+
+# Keystore files
+*.jks
+*.keystore
+
+# Log/OS Files
+*.log
+
+# Android Profiling
+*.hprof
+
+# Local configuration file (sdk path, etc)
+local.properties

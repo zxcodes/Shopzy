@@ -1,0 +1,13 @@
+{
+  "extends": "expo/tsconfig.base",
+  "compilerOptions": {
+    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "@app/*": ["src/*"],
+      "@assets/*": ["assets/*"]
+    },
+    "jsx": "react-native"
+  },
+  "exclude": ["node_modules"]
+}
