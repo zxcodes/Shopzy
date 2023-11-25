@@ -1,9 +1,9 @@
-import React, { PropsWithChildren } from "react";
-import { View, ViewStyle } from "react-native";
+import React, {PropsWithChildren} from 'react';
+import {View, ViewStyle} from 'react-native';
 
 interface FlexContainerProps extends PropsWithChildren {
-  position?: "start" | "center" | "end" | "rowBetween" | "columnBetween";
-  direction?: "row" | "column";
+  position?: 'start' | 'center' | 'end' | 'rowBetween' | 'columnBetween';
+  direction?: 'row' | 'column';
   fillHeight?: boolean;
   style?: ViewStyle;
 }
@@ -18,41 +18,41 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
   const getPositionStyles = (position: string): ViewStyle => {
     const baseStyles: ViewStyle = {
       flex: fillHeight ? 1 : undefined,
-      flexDirection: direction === "row" ? "row" : "column",
-      alignItems: "center",
+      flexDirection: direction === 'row' ? 'row' : 'column',
       ...style,
     };
 
     switch (position) {
-      case "start":
+      case 'start':
         return {
           ...baseStyles,
-          justifyContent: "flex-start",
-          alignItems: "flex-start",
+          justifyContent: 'flex-start',
+          alignItems: 'flex-start',
         };
-      case "center":
+      case 'center':
         return {
           ...baseStyles,
-          justifyContent: "center",
-          alignItems: "center",
+          justifyContent: 'center',
+          alignItems: 'center',
         };
-      case "end":
+      case 'end':
         return {
           ...baseStyles,
-          justifyContent: "flex-end",
-          alignItems: "flex-end",
+          justifyContent: 'flex-end',
+          alignItems: 'flex-end',
         };
-      case "rowBetween":
+      case 'rowBetween':
         return {
           ...baseStyles,
-          justifyContent: "space-between",
-          flexDirection: "row",
+          justifyContent: 'space-between',
+          flexDirection: 'row',
+          alignItems: 'center',
         };
-      case "columnBetween":
+      case 'columnBetween':
         return {
           ...baseStyles,
-          justifyContent: "space-between",
-          flexDirection: "column",
+          justifyContent: 'space-between',
+          flexDirection: 'column',
         };
       default:
         return baseStyles;

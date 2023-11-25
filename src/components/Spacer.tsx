@@ -1,21 +1,21 @@
-import React from "react";
-import { View } from "react-native";
-import { isAndroid } from "@app/utils";
+import React from 'react';
+import {View} from 'react-native';
+import {isAndroid} from '@app/utils';
 
 type SpacerProps = {
-  value: number;
+  space: number;
   between?: boolean;
 };
 
-export default function Spacer({ value, between }: SpacerProps) {
-  return value ? (
+export default function Spacer({space, between}: SpacerProps) {
+  return space ? (
     <View
       style={{
-        height: between ? 0 : isAndroid ? value + 1.5 : value,
-        width: between ? (isAndroid ? value + 1.5 : value) : 0,
+        height: between ? 0 : isAndroid ? space + 1.5 : space,
+        width: between ? (isAndroid ? space + 1.5 : space) : 0,
       }}
     />
   ) : null;
 }
 
-// <Spacer value={10} between />
+// <Spacer space={10} between />

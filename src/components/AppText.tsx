@@ -1,5 +1,5 @@
-import { AppColors, AppFonts, FontSizes } from "@app/utils";
-import { Text, TextProps, TextStyle } from "react-native";
+import {AppColors, AppFonts, FontSizes} from '@app/utils';
+import {Text, TextProps, TextStyle} from 'react-native';
 
 /**
  * AppText is a wrapper of native Text component from React Native.
@@ -7,7 +7,7 @@ import { Text, TextProps, TextStyle } from "react-native";
  * This ensures consistency across the App.
 
  * Example usage: <AppText fontFamily="ManropeMedium" 
-fontSize="medium" color="SnowWhite">
+fontSize="medium" color="PureWhite">
                     Some Text
                   </AppText>
  */
@@ -24,9 +24,9 @@ interface AppTextProps extends TextProps {
 }
 
 export default ({
-  fontFamily = "ManropeMedium",
-  color = "JustWhite",
-  fontSize = "regular",
+  fontFamily = 'ManropeMedium',
+  color = 'PureWhite',
+  fontSize = 'regular',
   children,
   style,
   ...remainingProps
@@ -42,8 +42,7 @@ export default ({
         color: fontColor,
         ...style,
       }}
-      {...remainingProps}
-    >
+      {...remainingProps}>
       {children}
     </Text>
   );

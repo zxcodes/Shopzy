@@ -1,8 +1,8 @@
-import { AppColors, isAndroid } from "@app/utils";
-import React, { PropsWithChildren } from "react";
-import { StatusBar, ViewStyle } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import PaddingContainer from "./PaddingContainer";
+import {AppColors, isAndroid} from '@app/utils';
+import React, {PropsWithChildren} from 'react';
+import {StatusBar, ViewStyle} from 'react-native';
+import {SafeAreaView} from 'react-native-safe-area-context';
+import PaddingContainer from './PaddingContainer';
 
 type MainContainerProps = PropsWithChildren<{
   style?: ViewStyle;
@@ -18,16 +18,17 @@ export default ({
   backgroundColor,
 }: MainContainerProps): JSX.Element => {
   return (
-    <SafeAreaView>
-      <StatusBar barStyle={isAndroid ? "light-content" : "dark-content"} />
+    <SafeAreaView
+      style={{
+        flex: fillHeight ? 1 : undefined,
+        backgroundColor: backgroundColor || AppColors.PureWhite,
+      }}>
+      <StatusBar barStyle={isAndroid ? 'light-content' : 'dark-content'} />
       <PaddingContainer
         style={{
-          height: fillHeight ? "100%" : 0,
-          backgroundColor: backgroundColor || AppColors.JustWhite,
           paddingVertical: 20,
           ...style,
-        }}
-      >
+        }}>
         {children}
       </PaddingContainer>
     </SafeAreaView>

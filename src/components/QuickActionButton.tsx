@@ -1,7 +1,7 @@
-import React from "react";
-import { StyleSheet, TouchableOpacity, ViewStyle } from "react-native";
-import { FlexContainer } from "@app/containers";
-import { AppColors, isAndroid } from "@app/utils";
+import React from 'react';
+import {StyleSheet, TouchableOpacity, ViewStyle} from 'react-native';
+import {FlexContainer} from '@app/containers';
+import {AppColors, isAndroid} from '@app/utils';
 
 type QuickActionButtonProps = {
   children: React.ReactNode;
@@ -26,8 +26,7 @@ export default ({
           ...(noBackground ? {} : styles.container),
           opacity: disabled ? 0.7 : 1,
           ...style,
-        }}
-      >
+        }}>
         {children}
       </FlexContainer>
     </TouchableOpacity>
@@ -38,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     height: isAndroid ? 40 : 36,
     width: isAndroid ? 40 : 36,
-    backgroundColor: AppColors.SkyBlue,
+    backgroundColor: AppColors.GreyLightest,
     borderRadius: 100,
   },
 });

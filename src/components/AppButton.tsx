@@ -1,18 +1,19 @@
-import { AppColors, AppFonts, FontSizes } from "@app/utils";
+import {AppColors, AppFonts, FontSizes} from '@app/utils';
 import {
   GestureResponderEvent,
+  StyleSheet,
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
   ViewStyle,
-} from "react-native";
+} from 'react-native';
 
 /**
  * AppButton is a wrapper of Button component from React Native.
  * It exists to make few things easier such as setting predefined background colors, font colors, font sizes, and font families.
  * This ensures consistency across the App.
 
- * Example usage: <AppButton fontFamily="UrbanistSemiBold" fontSize="medium" color="SnowWhite" backgroundColor="FlashyPurple">
+ * Example usage: <AppButton fontFamily="ManropeMedium" fontSize="medium" color="PureWhite" backgroundColor="PrimaryBlue">
                     Some Text
                   </AppButton>
  */
@@ -22,7 +23,7 @@ type AppColorKeys = keyof typeof AppColors;
 type AppFontSizes = keyof typeof FontSizes;
 
 interface AppButtonProps
-  extends Omit<TouchableOpacityProps, "fontSize" | "fontFamily"> {
+  extends Omit<TouchableOpacityProps, 'fontSize' | 'fontFamily'> {
   fontFamily?: AppFontKeys;
   fontSize?: AppFontSizes;
   color?: AppColorKeys;
@@ -32,10 +33,10 @@ interface AppButtonProps
 }
 
 export default ({
-  color = "JustWhite",
-  fontFamily = "ManropeMedium",
-  fontSize = "regular",
-  backgroundColor = "JustBlack",
+  color = 'PureWhite',
+  fontFamily = 'ManropeMedium',
+  fontSize = 'regular',
+  backgroundColor = 'PrimaryBlue',
   children,
   onPress,
   style,
@@ -46,22 +47,30 @@ export default ({
   const background = AppColors[backgroundColor as keyof typeof AppColors];
   return (
     <TouchableOpacity
+      activeOpacity={0.8}
       onPress={onPress}
       style={{
+        ...styles.button,
         backgroundColor: background,
         ...style,
       }}
-      {...remainingProps}
-    >
+      {...remainingProps}>
       <Text
         style={{
           fontSize: size,
           fontFamily: fontFamily,
           color: fontColor,
-        }}
-      >
+          textAlign: 'center',
+        }}>
         {children}
       </Text>
     </TouchableOpacity>
   );
 };
+
+const styles = StyleSheet.create({
+  button: {
+    paddingVertical: 16,
+    borderRadius: 20,
+  },
+});

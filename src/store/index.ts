@@ -1,5 +1,5 @@
-import { ProductType } from "@app/types";
-import { create } from "zustand";
+import {ProductType} from '@app/types';
+import {create} from 'zustand';
 
 type CartItem = {
   product: ProductType;
@@ -14,10 +14,10 @@ type CartStore = {
   clearCart: () => void;
 };
 
-const useCartStore = create<CartStore>((set) => ({
+const useCartStore = create<CartStore>(set => ({
   cart: [],
   addToCart: (product, quantity) => {
-    set((state) => ({
+    set(state => ({
       cart: [
         ...state.cart,
         {
@@ -27,22 +27,20 @@ const useCartStore = create<CartStore>((set) => ({
       ],
     }));
   },
-  removeFromCart: (productId) => {
-    set((state) => ({
-      cart: state.cart.filter((item) => item.product.id !== productId),
+  removeFromCart: productId => {
+    set(state => ({
+      cart: state.cart.filter(item => item.product.id !== productId),
     }));
   },
   updateCartItemQuantity: (productId, newQuantity) => {
-    set((state) => ({
-      cart: state.cart.map((item) =>
-        item.product.id === productId
-          ? { ...item, quantity: newQuantity }
-          : item
+    set(state => ({
+      cart: state.cart.map(item =>
+        item.product.id === productId ? {...item, quantity: newQuantity} : item
       ),
     }));
   },
   clearCart: () => {
-    set({ cart: [] });
+    set({cart: []});
   },
 }));
 

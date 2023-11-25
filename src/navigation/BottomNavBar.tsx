@@ -23,7 +23,7 @@ const screenOptions: BottomTabNavigationOptions = {
   headerShown: false,
 };
 
-const Tab = createBottomTabNavigator<BottomScreensParamsList>();
+const BottomTab = createBottomTabNavigator<BottomScreensParamsList>();
 
 const options: BottomTabNavigationOptions = {
   tabBarHideOnKeyboard: true,
@@ -43,14 +43,14 @@ const initialRouteName: keyof BottomScreensParamsList = 'HomeScreen';
 
 export default () => {
   return (
-    <Tab.Navigator
+    <BottomTab.Navigator
       initialRouteName={initialRouteName}
       screenOptions={screenOptions}
       sceneContainerStyle={{
         backgroundColor: AppColors.PureWhite,
         marginBottom: isAndroid ? 0 : -40,
       }}>
-      <Tab.Screen
+      <BottomTab.Screen
         name="HomeScreen"
         component={HomeScreen}
         options={{
@@ -65,7 +65,7 @@ export default () => {
           tabBarLabel: 'Home',
         }}
       />
-      <Tab.Screen
+      <BottomTab.Screen
         name="CategoriesScreen"
         component={CategoriesScreen}
         options={{
@@ -80,7 +80,7 @@ export default () => {
           tabBarLabel: 'Categories',
         }}
       />
-      <Tab.Screen
+      <BottomTab.Screen
         name="FavoritesScreen"
         component={FavoritesScreen}
         options={{
@@ -95,7 +95,7 @@ export default () => {
           tabBarLabel: 'Favorites',
         }}
       />
-      <Tab.Screen
+      <BottomTab.Screen
         name="MoreScreen"
         component={MoreScreen}
         options={{
@@ -116,6 +116,6 @@ export default () => {
           tabBarLabel: 'More',
         }}
       />
-    </Tab.Navigator>
+    </BottomTab.Navigator>
   );
 };
