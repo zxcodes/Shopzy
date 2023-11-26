@@ -11,11 +11,18 @@ import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';
 import {AppScreensParamsList, ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
-import {ArrowIcon} from '@assets/svg';
+import {showToast} from '@app/utils/functions';
+import {ArrowIcon, HeartIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {ActivityIndicator, ScrollView, StyleSheet, View} from 'react-native';
+import {
+  ActivityIndicator,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  View,
+} from 'react-native';
 
 const PriceAndDiscountIndicator = ({
   price,
@@ -49,6 +56,10 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
   const [productDetails, setProductDetails] = useState<ProductType>();
   const isFocused = useIsFocused();
 
+  const isProductInCart = store.cart.some(
+    product => product.product.id === productDetails?.id
+  );
+
   const getProductDetails = async (productId: number) => {
     if (productId) {
       try {
@@ -64,11 +75,29 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
     }
   };
 
+  const handleAddToCart = () => {
+    if (productDetails) {
+      if (isProductInCart) {
+        store.removeFromCart(productDetails.id);
+        showToast(
+          'Product removed from cart',
+          `${productDetails.title} has been removed from your cart!`
+        );
+      } else {
+        store.addToCart(productDetails, 1);
+        showToast(
+          'Product added to cart',
+          `${productDetails.title} has been added to your cart!`
+        );
+      }
+    }
+  };
+
   const isProductLoaded =
     productDetails &&
-    productDetails?.id &&
-    productDetails.title &&
-    productDetails.price;
+    !!productDetails?.id &&
+    !!productDetails.title &&
+    !!productDetails.price;
 
   useEffect(() => {
     getProductDetails(productId);
@@ -83,13 +112,22 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
           </QuickActionButton>
           <CartButtonWithIndicator
             quantity={store.cart.length || 0}
-            onPress={() => navigation.navigate('CategoriesScreen')}
+            onPress={() => navigation.navigate('Cart')}
             cartIconColor={AppColors.GreyDark}
           />
         </FlexContainer>
       </PaddingContainer>
       <Spacer space={10} />
-      <ScrollView style={{flex: 1}}>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        style={{flex: 1}}
+        refreshControl={
+          <RefreshControl
+            refreshing={false}
+            onRefresh={() => getProductDetails(productId)}
+            tintColor={AppColors.PrimaryBlue}
+          />
+        }>
         {isProductLoaded ? (
           <View>
             <PaddingContainer>
@@ -100,7 +138,17 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
               <StarRatingViewer rating={productDetails?.rating} />
               <Spacer space={15} />
             </PaddingContainer>
-            <ImageCarousel images={productDetails.images} />
+
+            <View>
+              <View style={styles.favoriteButtonHolder}>
+                <QuickActionButton
+                  onPress={() => store.addToFavorites(productDetails)}
+                  style={styles.favoriteButton}>
+                  <HeartIcon height={24} width={24} />
+                </QuickActionButton>
+              </View>
+              <ImageCarousel images={productDetails.images} />
+            </View>
             <Spacer space={26} />
             <PaddingContainer>
               <PriceAndDiscountIndicator
@@ -111,9 +159,9 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
               <FlexContainer direction="row" position="center">
                 <AppButton
                   style={styles.addToCartButton}
-                  onPress={() => store.addToCart(productDetails, 1)}
+                  onPress={handleAddToCart}
                   color="PrimaryBlue">
-                  Add To Cart
+                  {isProductInCart ? 'Remove From Cart' : 'Add To Cart'}
                 </AppButton>
                 <Spacer space={20} between />
                 <AppButton
@@ -150,5 +198,17 @@ const styles = StyleSheet.create({
     borderColor: AppColors.PrimaryBlue,
     backgroundColor: undefined,
     flex: 1,
+  },
+  favoriteButton: {
+    borderRadius: 20,
+    backgroundColor: AppColors.PureWhite,
+    height: 53,
+    width: 53,
+  },
+  favoriteButtonHolder: {
+    position: 'absolute',
+    zIndex: 1,
+    right: 20,
+    top: 20,
   },
 });

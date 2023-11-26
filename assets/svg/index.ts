@@ -7,6 +7,7 @@ import ThreeVerticalDotsIcon from './ThreeDotsVertical.svg';
 import ArrowIcon from './Arrow.svg';
 import LikeIcon from './LikeIcon.svg';
 import PlusIcon from './PlusIcon.svg';
+import DoneIcon from './DoneIcon.svg';
 
 export {
   CartIcon,
@@ -18,4 +19,5 @@ export {
   ArrowIcon,
   LikeIcon,
   PlusIcon,
+  DoneIcon,
 };

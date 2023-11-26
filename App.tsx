@@ -1,5 +1,5 @@
 import BottomNavBar from '@app/navigation/BottomNavBar';
-import ProductDetails from '@app/screens/ProductDetails';
+import {CartScreen, ProductDetailsScreen} from '@app/screens';
 import {AppScreensParamsList} from '@app/types';
 import {AppColors} from '@app/utils';
 import {
@@ -15,6 +15,7 @@ import {
 } from '@react-navigation/native-stack';
 import {useFonts} from 'expo-font';
 import React from 'react';
+import Toast from 'react-native-toast-message';
 
 function App(): JSX.Element | null {
   const Stack = createNativeStackNavigator<AppScreensParamsList>();
@@ -49,10 +50,16 @@ function App(): JSX.Element | null {
         />
         <Stack.Screen
           name="ProductDetails"
-          component={ProductDetails}
+          component={ProductDetailsScreen}
+          options={screensOptions}
+        />
+        <Stack.Screen
+          name="Cart"
+          component={CartScreen}
           options={screensOptions}
         />
       </Stack.Navigator>
+      <Toast />
     </NavigationContainer>
   );
 }

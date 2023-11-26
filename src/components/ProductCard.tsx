@@ -3,7 +3,7 @@ import {FlexContainer, PaddingContainer} from '@app/containers';
 import {ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
 import ProductFallbackImage from '@assets/images/ProductFallbackImage.png';
-import {LikeIcon, PlusIcon} from '@assets/svg';
+import {DoneIcon, LikeIcon, PlusIcon} from '@assets/svg';
 import {
   ImageBackground,
   ImageSourcePropType,
@@ -21,6 +21,7 @@ type ProductCardProps = {
   productDetails: ProductType | undefined;
   onPress: (product: ProductType) => void;
   onAddToCart: (product: ProductType) => void;
+  isProductAddedToCart?: boolean;
 };
 
 type ProductImageProps = {
@@ -59,6 +60,7 @@ export default ({
   onPress,
   style,
   productDetails,
+  isProductAddedToCart,
 }: ProductCardProps): JSX.Element => {
   const isValidImage = productDetails?.thumbnail !== '';
 
@@ -92,7 +94,11 @@ export default ({
           <QuickActionButton
             style={styles.addToCardButton}
             onPress={() => productDetails && onAddToCart(productDetails)}>
-            <PlusIcon height={13} width={13} />
+            {isProductAddedToCart ? (
+              <DoneIcon height={13} width={13} stroke={AppColors.PureWhite} />
+            ) : (
+              <PlusIcon height={13} width={13} />
+            )}
           </QuickActionButton>
         </FlexContainer>
         <AppText fontSize="small" color="LightGrey" style={styles.productName}>

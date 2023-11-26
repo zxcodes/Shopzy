@@ -10,10 +10,11 @@ import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';
 import {AppScreensParamsList, ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
+import {showToast} from '@app/utils/functions';
 import {SearchIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {useIsFocused} from '@react-navigation/native';
-import React, {useCallback, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
   FlatList,
   RefreshControl,
@@ -30,7 +31,7 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
   const store = useCartStore();
   const isFocused = useIsFocused();
 
-  const getProductsList = useCallback(async () => {
+  const getProductsList = async () => {
     try {
       const res = await fetch('https://dummyjson.com/products');
       const data = await res.json();
@@ -41,10 +42,29 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
     } catch (error) {
       console.error('Failed to get products list!', error);
     }
-  }, []);
+  };
 
   const navigateToProductDetails = (product: ProductType) => {
     navigation.navigate('ProductDetails', {product});
+  };
+
+  const handleOnAddToCart = (
+    product: ProductType,
+    isProductInCart: boolean
+  ) => {
+    if (isProductInCart) {
+      store.removeFromCart(product.id);
+      showToast(
+        'Product removed from cart',
+        `${product.title} has been removed from your cart!`
+      );
+    } else {
+      showToast(
+        'Product added to cart',
+        `${product.title} has been added to your cart!`
+      );
+      store.addToCart(product, 1);
+    }
   };
 
   const ListHeaderComponent = (
@@ -59,7 +79,7 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
           </AppText>
           <CartButtonWithIndicator
             quantity={store.cart.length || 0}
-            onPress={() => navigation.navigate('CategoriesScreen')}
+            onPress={() => navigation.navigate('Cart')}
           />
         </FlexContainer>
         <Spacer space={35} />
@@ -126,9 +146,14 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
         data={productList}
         ListHeaderComponent={ListHeaderComponent}
         renderItem={({item: product}) => {
+          const isProductInCart = store.cart.some(
+            item => product.id === item?.product.id
+          );
+
           return (
             <ProductCard
-              onAddToCart={product => store.addToCart(product, 1)}
+              isProductAddedToCart={isProductInCart}
+              onAddToCart={() => handleOnAddToCart(product, isProductInCart)}
               onPress={navigateToProductDetails}
               isFavorite={false}
               productDetails={product}

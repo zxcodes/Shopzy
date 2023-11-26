@@ -1,3 +1,4 @@
+import Cart from './Cart';
 import Categories from './Categories';
 import Favorites from './Favorites';
 import Home from './Home';
@@ -10,4 +11,5 @@ export {
   Favorites as FavoritesScreen,
   More as MoreScreen,
   ProductDetails as ProductDetailsScreen,
+  Cart as CartScreen,
 };

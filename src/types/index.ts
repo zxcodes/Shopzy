@@ -4,7 +4,7 @@ type AppScreensParamsList = {
   FavoritesScreen: undefined;
   MoreScreen: undefined;
   ProductDetails: {product: ProductType};
-  ShoppingCart: undefined;
+  Cart: undefined;
   BottomNavBar: undefined;
 };
 
