@@ -37,7 +37,15 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
       const data = await res.json();
 
       if (Array.isArray(data.products) && data.products.length) {
-        setProductList(data.products);
+        const updatedProducts = data.products.map((product: ProductType) => {
+          return {
+            ...product,
+            isFavorite: store.favorites.some(
+              favorite => favorite.id === product.id
+            ),
+          };
+        });
+        setProductList(updatedProducts);
       }
     } catch (error) {
       console.error('Failed to get products list!', error);
@@ -154,7 +162,7 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
               isProductAddedToCart={isProductInCart}
               onAddToCart={() => handleOnAddToCart(product, isProductInCart)}
               onPress={navigateToProductDetails}
-              isFavorite={false}
+              isFavorite={product.isFavorite || false}
               productDetails={product}
             />
           );

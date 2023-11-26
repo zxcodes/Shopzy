@@ -15,7 +15,7 @@ import {showToast} from '@app/utils/functions';
 import {ArrowIcon, HeartIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {useIsFocused} from '@react-navigation/native';
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useMemo, useState} from 'react';
 import {
   ActivityIndicator,
   RefreshControl,
@@ -67,7 +67,13 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
         const data = await res.json();
 
         if (Object.keys(data).length) {
-          setProductDetails(data);
+          const updatedProductDetails = {
+            ...data,
+            isFavorite: store.favorites.some(
+              favorite => favorite.id === data.id
+            ),
+          };
+          setProductDetails(updatedProductDetails);
         }
       } catch (error) {
         console.error('Failed to get product details!', error);
@@ -99,9 +105,15 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
     !!productDetails.title &&
     !!productDetails.price;
 
+  const isProductInFavorites = useMemo(() => {
+    if (productDetails) {
+      return store.favorites.some(product => product.id === productDetails.id);
+    }
+  }, [store.favorites.length, productDetails?.isFavorite]);
+
   useEffect(() => {
     getProductDetails(productId);
-  }, [isFocused]);
+  }, [isFocused, isProductInFavorites]);
 
   return (
     <MainContainer style={{paddingHorizontal: 0}} fillHeight>
@@ -142,9 +154,24 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
             <View>
               <View style={styles.favoriteButtonHolder}>
                 <QuickActionButton
-                  onPress={() => store.addToFavorites(productDetails)}
+                  onPress={() => {
+                    if (isProductInFavorites) {
+                      store.removeFromFavorites(productDetails.id);
+                    } else {
+                      store.addToFavorites(productDetails);
+                    }
+                  }}
                   style={styles.favoriteButton}>
-                  <HeartIcon height={24} width={24} />
+                  <HeartIcon
+                    height={24}
+                    width={24}
+                    stroke={
+                      productDetails.isFavorite ? 'none' : AppColors.GreyDark
+                    }
+                    fill={
+                      productDetails.isFavorite ? AppColors.LightOrange : 'none'
+                    }
+                  />
                 </QuickActionButton>
               </View>
               <ImageCarousel images={productDetails.images} />

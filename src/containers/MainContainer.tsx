@@ -19,6 +19,7 @@ export default ({
 }: MainContainerProps): JSX.Element => {
   return (
     <SafeAreaView
+      edges={['top', 'left', 'right']}
       style={{
         flex: fillHeight ? 1 : undefined,
         backgroundColor: backgroundColor || AppColors.PureWhite,

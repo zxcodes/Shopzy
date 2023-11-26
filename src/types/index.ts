@@ -20,6 +20,7 @@ type ProductType = {
   category: string;
   thumbnail: string;
   images: string[];
+  isFavorite: boolean;
 };
 
 type ProductsList = ProductType[];
