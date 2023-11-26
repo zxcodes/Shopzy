@@ -25,7 +25,7 @@ interface AppTextProps extends TextProps {
 
 export default ({
   fontFamily = 'ManropeMedium',
-  color = 'PureWhite',
+  color = 'GreyDark',
   fontSize = 'regular',
   children,
   style,

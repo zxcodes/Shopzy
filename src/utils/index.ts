@@ -14,6 +14,7 @@ enum AppColors {
   GreyDarkLight = '#3E4554',
   GreyDark = '#1E222B',
   LightWhite = '#F8F9FB',
+  LightGrey = '#616A7D',
 }
 
 enum AppFonts {

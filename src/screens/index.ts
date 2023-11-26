@@ -1,13 +1,13 @@
-import Categories from "./Categories";
-import Favorites from "./Favorites";
-import Home from "./Home";
-import More from "./More";
-import NoNetwork from "./NoNetwork";
+import Categories from './Categories';
+import Favorites from './Favorites';
+import Home from './Home';
+import More from './More';
+import ProductDetails from './ProductDetails';
 
 export {
   Home as HomeScreen,
-  NoNetwork as NoNetworkScreen,
   Categories as CategoriesScreen,
   Favorites as FavoritesScreen,
   More as MoreScreen,
+  ProductDetails as ProductDetailsScreen,
 };

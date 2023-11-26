@@ -87,7 +87,12 @@ export default () => {
           ...options,
           tabBarIcon: e => {
             return e.focused ? (
-              <HeartIcon height={TAB_ICON_SIZE} width={TAB_ICON_SIZE} />
+              <HeartIcon
+                strokeWidth={0}
+                fill={AppColors.PrimaryYellow}
+                height={TAB_ICON_SIZE}
+                width={TAB_ICON_SIZE}
+              />
             ) : (
               <HeartIcon height={TAB_ICON_SIZE} width={TAB_ICON_SIZE} />
             );

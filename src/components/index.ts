@@ -4,6 +4,8 @@ import QuickActionButton from './QuickActionButton';
 import Spacer from './Spacer';
 import CartButtonWithIndicator from './CartButtonWithIndicator';
 import DropdownSelector from './DropdownSelector';
+import HorizontalBannerList from './HorizontalBannerList';
+import ProductCard from './ProductCard';
 
 export {
   AppText,
@@ -12,4 +14,6 @@ export {
   AppButton,
   CartButtonWithIndicator,
   DropdownSelector,
+  HorizontalBannerList,
+  ProductCard,
 };

@@ -1,35 +1,23 @@
-import BottomNavBar from "@app/navigation/BottomNavBar";
-import { NoNetworkScreen } from "@app/screens";
-import { AppColors } from "@app/utils";
+import BottomNavBar from '@app/navigation/BottomNavBar';
+import ProductDetails from '@app/screens/ProductDetails';
+import {RootStackParamsList} from '@app/types';
+import {AppColors} from '@app/utils';
 import {
   ManropeBold,
   ManropeMedium,
   ManropeRegular,
   ManropeSemiBold,
-} from "@assets/fonts";
-import NetInfo from "@react-native-community/netinfo";
-import { NavigationContainer } from "@react-navigation/native";
+} from '@assets/fonts';
+import {NavigationContainer} from '@react-navigation/native';
 import {
   NativeStackNavigationOptions,
   createNativeStackNavigator,
-} from "@react-navigation/native-stack";
-import { useFonts } from "expo-font";
-import React, { useEffect, useState } from "react";
+} from '@react-navigation/native-stack';
+import {useFonts} from 'expo-font';
+import React from 'react';
 
 function App(): JSX.Element | null {
-  const [noNetwork, setNoNetwork] = useState<boolean>(false);
-  const Stack = createNativeStackNavigator();
-
-  useEffect(() => {
-    const networkInfoSubscription = NetInfo.addEventListener((state) => {
-      if (!state.isConnected) {
-        setNoNetwork(true);
-      } else {
-        setNoNetwork(false);
-      }
-    });
-    return () => networkInfoSubscription();
-  });
+  const Stack = createNativeStackNavigator<RootStackParamsList>();
 
   const [fontsLoaded] = useFonts({
     ManropeRegular,
@@ -44,7 +32,7 @@ function App(): JSX.Element | null {
 
   const screensOptions: NativeStackNavigationOptions = {
     headerShown: false,
-    orientation: "portrait",
+    orientation: 'portrait',
     contentStyle: {
       backgroundColor: AppColors.PureWhite,
     },
@@ -53,19 +41,16 @@ function App(): JSX.Element | null {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        {noNetwork ? (
-          <Stack.Screen
-            name="NoNetworkScreen"
-            component={NoNetworkScreen}
-            options={screensOptions}
-          />
-        ) : (
-          <Stack.Screen
-            name="BottomNavBar"
-            component={BottomNavBar}
-            options={screensOptions}
-          />
-        )}
+        <Stack.Screen
+          name="BottomNavBar"
+          component={BottomNavBar}
+          options={screensOptions}
+        />
+        <Stack.Screen
+          name="ProductDetails"
+          component={ProductDetails}
+          options={screensOptions}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -5,6 +5,8 @@ import HomeIcon from './Home.svg';
 import SearchIcon from './SearchIcon.svg';
 import ThreeVerticalDotsIcon from './ThreeDotsVertical.svg';
 import ArrowIcon from './Arrow.svg';
+import LikeIcon from './LikeIcon.svg';
+import PlusIcon from './PlusIcon.svg';
 
 export {
   CartIcon,
@@ -14,4 +16,6 @@ export {
   SearchIcon,
   ThreeVerticalDotsIcon,
   ArrowIcon,
+  LikeIcon,
+  PlusIcon,
 };
