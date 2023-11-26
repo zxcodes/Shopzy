@@ -7,6 +7,7 @@ import DropdownSelector from './DropdownSelector';
 import HorizontalBannerList from './HorizontalBannerList';
 import ProductCard from './ProductCard';
 import StarRatingViewer from './StarRatingViewer';
+import ImageCarousel from './ImageCarousel';
 
 export {
   AppText,
@@ -18,4 +19,5 @@ export {
   HorizontalBannerList,
   ProductCard,
   StarRatingViewer,
+  ImageCarousel,
 };

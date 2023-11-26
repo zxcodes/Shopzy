@@ -7,6 +7,7 @@ import {
   Spacer,
 } from '@app/components';
 import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
+import {useCartStore} from '@app/store';
 import {AppScreensParamsList, ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
 import {SearchIcon} from '@assets/svg';
@@ -26,6 +27,7 @@ type HomeScreenProps = BottomTabScreenProps<AppScreensParamsList, 'HomeScreen'>;
 export default ({navigation}: HomeScreenProps): JSX.Element => {
   const [productList, setProductList] = useState<ProductType[]>();
 
+  const store = useCartStore();
   const isFocused = useIsFocused();
 
   const getProductsList = useCallback(async () => {
@@ -56,7 +58,7 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
             Hey, Rahul
           </AppText>
           <CartButtonWithIndicator
-            quantity={10}
+            quantity={store.cart.length || 0}
             onPress={() => navigation.navigate('CategoriesScreen')}
           />
         </FlexContainer>
@@ -126,7 +128,7 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
         renderItem={({item: product}) => {
           return (
             <ProductCard
-              onAddToCart={add => console.log(add)}
+              onAddToCart={product => store.addToCart(product, 1)}
               onPress={navigateToProductDetails}
               isFavorite={false}
               productDetails={product}

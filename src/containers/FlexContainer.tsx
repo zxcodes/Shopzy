@@ -27,7 +27,7 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
         return {
           ...baseStyles,
           justifyContent: 'flex-start',
-          alignItems: 'flex-start',
+          alignItems: direction === 'row' ? 'center' : 'flex-start',
         };
       case 'center':
         return {
@@ -39,7 +39,7 @@ const FlexContainer: React.FC<FlexContainerProps> = ({
         return {
           ...baseStyles,
           justifyContent: 'flex-end',
-          alignItems: 'flex-end',
+          alignItems: direction === 'row' ? 'center' : 'flex-end',
         };
       case 'rowBetween':
         return {

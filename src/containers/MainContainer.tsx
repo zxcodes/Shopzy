@@ -3,7 +3,6 @@ import {StatusBar} from 'expo-status-bar';
 import React, {PropsWithChildren} from 'react';
 import {ViewStyle} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import PaddingContainer from './PaddingContainer';
 
 type MainContainerProps = PropsWithChildren<{
   style?: ViewStyle;
@@ -23,15 +22,12 @@ export default ({
       style={{
         flex: fillHeight ? 1 : undefined,
         backgroundColor: backgroundColor || AppColors.PureWhite,
+        paddingVertical: 20,
+        paddingHorizontal: 10,
+        ...style,
       }}>
       <StatusBar style="auto" backgroundColor={AppColors.PrimaryBlue} />
-      <PaddingContainer
-        style={{
-          paddingVertical: 20,
-          ...style,
-        }}>
-        {children}
-      </PaddingContainer>
+      {children}
     </SafeAreaView>
   );
 };

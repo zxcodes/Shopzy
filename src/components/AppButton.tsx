@@ -28,13 +28,13 @@ interface AppButtonProps
   fontSize?: AppFontSizes;
   color?: AppColorKeys;
   backgroundColor?: AppColorKeys;
-  onPress?: ((event: GestureResponderEvent) => void) | undefined;
+  onPress: ((event: GestureResponderEvent) => void) | undefined;
   style?: ViewStyle;
 }
 
 export default ({
   color = 'PureWhite',
-  fontFamily = 'ManropeMedium',
+  fontFamily = 'ManropeSemiBold',
   fontSize = 'regular',
   backgroundColor = 'PrimaryBlue',
   children,
@@ -72,5 +72,6 @@ const styles = StyleSheet.create({
   button: {
     paddingVertical: 16,
     borderRadius: 20,
+    paddingHorizontal: 20,
   },
 });
