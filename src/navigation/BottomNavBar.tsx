@@ -30,12 +30,14 @@ const options: BottomTabNavigationOptions = {
   tabBarLabelStyle: {
     color: AppColors.GreyLightest,
     fontSize: FontSizes.small,
+    marginBottom: 10,
   },
   tabBarStyle: {
     backgroundColor: AppColors.PureWhite,
     borderTopWidth: 0,
-    borderRadius: 30,
-    marginBottom: 10,
+    height: 70,
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
   },
 };
 
