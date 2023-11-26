@@ -13,7 +13,13 @@ import {SearchIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {useIsFocused} from '@react-navigation/native';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
+import {
+  FlatList,
+  RefreshControl,
+  StyleSheet,
+  TextInput,
+  View,
+} from 'react-native';
 
 type HomeScreenProps = BottomTabScreenProps<AppScreensParamsList, 'HomeScreen'>;
 
@@ -46,74 +52,98 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
     }));
   }, [productList]);
 
+  const ListHeaderComponent = (
+    <>
+      <View style={styles.extendedHeader}>
+        <Spacer space={20} />
+        <FlexContainer position="rowBetween" direction="row">
+          <AppText
+            style={{fontSize: 22}}
+            color="PureWhite"
+            fontFamily="ManropeSemiBold">
+            Hey, Rahul
+          </AppText>
+          <CartButtonWithIndicator
+            quantity={0}
+            onPress={() => navigation.navigate('CategoriesScreen')}
+          />
+        </FlexContainer>
+        <Spacer space={35} />
+        <View style={styles.searchInput}>
+          <SearchIcon height={18} width={18} />
+          <Spacer space={12} between />
+          <TextInput
+            style={styles.textInput}
+            placeholderTextColor={AppColors.GreyLightest}
+            placeholder="Search Products or store"
+          />
+        </View>
+        <Spacer space={35} />
+        <FlexContainer position="rowBetween" direction="row">
+          <DropdownSelector
+            title="Delivery to"
+            selectedValue="Green Way 3000, Sylhet"
+            onPress={value => alert(value)}
+          />
+          <DropdownSelector
+            title="Within"
+            selectedValue="1 Hour"
+            onPress={value => alert(value)}
+          />
+        </FlexContainer>
+      </View>
+      <Spacer space={27} />
+      <HorizontalBannerList
+        list={horizontalBannerList}
+        onPress={item => alert(JSON.stringify(item))}
+      />
+      <Spacer space={27} />
+      <PaddingContainer style={{paddingVertical: 0}}>
+        <AppText fontSize="extraLarge">Recommended</AppText>
+        <Spacer space={20} />
+      </PaddingContainer>
+    </>
+  );
+
   useEffect(() => {
     getProductsList();
   }, [isFocused]);
 
   return (
-    <ScrollView>
-      <MainContainer
-        style={styles.container}
-        backgroundColor={AppColors.PureWhite}
-        fillHeight>
-        <View style={styles.extendedHeader}>
-          <Spacer space={20} />
-          <FlexContainer position="rowBetween" direction="row">
-            <AppText
-              style={{fontSize: 22}}
-              color="PureWhite"
-              fontFamily="ManropeSemiBold">
-              Hey, Rahul
-            </AppText>
-            <CartButtonWithIndicator
-              quantity={0}
-              onPress={() => navigation.navigate('CategoriesScreen')}
-            />
-          </FlexContainer>
-          <Spacer space={35} />
-          <View style={styles.searchInput}>
-            <SearchIcon height={18} width={18} />
-            <Spacer space={12} between />
-            <TextInput
-              style={styles.textInput}
-              placeholderTextColor={AppColors.GreyLightest}
-              placeholder="Search Products or store"
-            />
-          </View>
-          <Spacer space={35} />
-          <FlexContainer position="rowBetween" direction="row">
-            <DropdownSelector
-              title="Delivery to"
-              selectedValue="Green Way 3000, Sylhet"
-              onPress={value => alert(value)}
-            />
-            <DropdownSelector
-              title="Within"
-              selectedValue="1 Hour"
-              onPress={value => alert(value)}
-            />
-          </FlexContainer>
-        </View>
-        <Spacer space={27} />
-        <HorizontalBannerList
-          list={horizontalBannerList}
-          onPress={item => alert(JSON.stringify(item))}
-        />
-        <Spacer space={27} />
-        <PaddingContainer style={{paddingVertical: 0}}>
-          <AppText fontSize="extraLarge">Recommended</AppText>
-          <Spacer space={20} />
-          <ProductCard
-            onAddToCart={add => console.log(add)}
-            onPress={product =>
-              navigation.navigate('ProductDetails', {product})
-            }
-            isFavorite={false}
-            productDetails={productList ? productList[5] : undefined}
+    <MainContainer
+      style={styles.container}
+      backgroundColor={AppColors.PureWhite}
+      fillHeight>
+      <FlatList
+        refreshControl={
+          <RefreshControl
+            refreshing={productList?.length === 0}
+            onRefresh={getProductsList}
+            tintColor={AppColors.PrimaryBlue}
           />
-        </PaddingContainer>
-      </MainContainer>
-    </ScrollView>
+        }
+        contentContainerStyle={{paddingBottom: 50}}
+        initialNumToRender={10}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={product => product.id.toString()}
+        numColumns={2}
+        data={productList}
+        ListHeaderComponent={ListHeaderComponent}
+        renderItem={({item: product}) => {
+          return (
+            <ProductCard
+              // eslint-disable-next-line no-console
+              onAddToCart={add => console.log(add)}
+              onPress={product =>
+                navigation.navigate('ProductDetails', {product})
+              }
+              isFavorite={false}
+              productDetails={product}
+            />
+          );
+        }}
+      />
+    </MainContainer>
   );
 };
 

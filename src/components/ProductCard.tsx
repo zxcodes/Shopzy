@@ -1,3 +1,4 @@
+import {PRODUCT_BORDER_RADIUS} from '@app/constants';
 import {FlexContainer, PaddingContainer} from '@app/containers';
 import {ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
@@ -5,6 +6,8 @@ import ProductFallbackImage from '@assets/images/ProductFallbackImage.png';
 import {LikeIcon, PlusIcon} from '@assets/svg';
 import {
   ImageBackground,
+  ImageSourcePropType,
+  StyleProp,
   StyleSheet,
   TouchableOpacity,
   ViewStyle,
@@ -20,6 +23,36 @@ type ProductCardProps = {
   onAddToCart: (product: ProductType) => void;
 };
 
+type ProductImageProps = {
+  isValidImage: boolean;
+  source: ImageSourcePropType;
+  style: StyleProp<ViewStyle>;
+  isFavorite: boolean;
+};
+
+const ProductImage = ({
+  isValidImage,
+  source,
+  style,
+  isFavorite,
+}: ProductImageProps) => (
+  <ImageBackground
+    resizeMode="stretch"
+    borderTopRightRadius={PRODUCT_BORDER_RADIUS}
+    borderTopLeftRadius={PRODUCT_BORDER_RADIUS}
+    source={source}
+    style={style}>
+    <LikeIcon
+      style={{
+        position: 'absolute',
+        ...(isValidImage ? {top: 10, left: 10} : {top: 0, right: 90}),
+      }}
+      stroke={isFavorite ? 'none' : AppColors.GreyDark}
+      fill={isFavorite ? AppColors.LightOrange : 'none'}
+    />
+  </ImageBackground>
+);
+
 export default ({
   isFavorite,
   onAddToCart,
@@ -29,29 +62,28 @@ export default ({
 }: ProductCardProps): JSX.Element => {
   const isValidImage = productDetails?.thumbnail !== '';
 
+  const imageSource = isValidImage
+    ? {uri: productDetails?.thumbnail}
+    : ProductFallbackImage;
+
   return (
     <TouchableOpacity
       onPress={() => productDetails && onPress(productDetails)}
-      style={{...styles.productCard, ...style}}>
-      <ImageBackground
-        resizeMode="stretch"
-        borderTopRightRadius={12}
-        borderTopLeftRadius={12}
-        source={
-          isValidImage ? {uri: productDetails?.thumbnail} : ProductFallbackImage
+      style={{
+        ...styles.productCard,
+        ...style,
+      }}>
+      <ProductImage
+        isValidImage={isValidImage}
+        source={imageSource}
+        style={
+          isValidImage
+            ? {height: 194 / 1.8, width: 'auto'}
+            : styles.productFallBackImage
         }
-        style={{
-          height: isValidImage ? 194 / 1.8 : 56,
-          width: isValidImage ? 160 : 56,
-          alignSelf: 'center',
-          marginTop: !isValidImage ? 20 : undefined,
-        }}>
-        <LikeIcon
-          style={{position: 'absolute', top: 10, left: 10}}
-          stroke={isFavorite ? 'none' : AppColors.GreyDark}
-          fill={isFavorite ? AppColors.LightOrange : 'none'}
-        />
-      </ImageBackground>
+        isFavorite={isFavorite}
+      />
+
       <PaddingContainer style={{paddingHorizontal: 17, paddingVertical: 17}}>
         <FlexContainer position="rowBetween" direction="row">
           <AppText fontSize="regular">{`$${
@@ -60,11 +92,11 @@ export default ({
           <QuickActionButton
             style={styles.addToCardButton}
             onPress={() => productDetails && onAddToCart(productDetails)}>
-            <PlusIcon height={12} width={12} />
+            <PlusIcon height={13} width={13} />
           </QuickActionButton>
         </FlexContainer>
-        <AppText fontSize="small" color="LightGrey">
-          {productDetails?.title}
+        <AppText fontSize="small" color="LightGrey" style={styles.productName}>
+          {productDetails?.title || ''}
         </AppText>
       </PaddingContainer>
     </TouchableOpacity>
@@ -73,14 +105,24 @@ export default ({
 
 const styles = StyleSheet.create({
   productCard: {
-    height: 194,
-    width: 160,
-    borderRadius: 12,
+    flex: 1,
+    borderRadius: PRODUCT_BORDER_RADIUS,
     backgroundColor: AppColors.LightWhite,
+    marginHorizontal: 17,
+    marginBottom: 20,
   },
   addToCardButton: {
     height: 24,
     width: 24,
     backgroundColor: AppColors.PrimaryBlue,
+  },
+  productName: {
+    width: '75%',
+  },
+  productFallBackImage: {
+    height: 68,
+    width: 68,
+    alignSelf: 'center',
+    marginTop: 20,
   },
 });
