@@ -1,14 +1,11 @@
-type RootStackParamsList = {
-  ProductDetails: ProductType;
-  ShoppingCart: undefined;
-  BottomNavBar: BottomScreensParamsList;
-};
-
-type BottomScreensParamsList = {
+type AppScreensParamsList = {
   HomeScreen: undefined;
   CategoriesScreen: undefined;
   FavoritesScreen: undefined;
   MoreScreen: undefined;
+  ProductDetails: {product: ProductType};
+  ShoppingCart: undefined;
+  BottomNavBar: undefined;
 };
 
 type ProductType = {
@@ -27,9 +24,4 @@ type ProductType = {
 
 type ProductsList = ProductType[];
 
-export type {
-  BottomScreensParamsList,
-  RootStackParamsList,
-  ProductType,
-  ProductsList,
-};
+export type {AppScreensParamsList, ProductType, ProductsList};

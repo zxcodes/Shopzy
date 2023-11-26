@@ -1,6 +1,6 @@
 import BottomNavBar from '@app/navigation/BottomNavBar';
 import ProductDetails from '@app/screens/ProductDetails';
-import {RootStackParamsList} from '@app/types';
+import {AppScreensParamsList} from '@app/types';
 import {AppColors} from '@app/utils';
 import {
   ManropeBold,
@@ -17,7 +17,7 @@ import {useFonts} from 'expo-font';
 import React from 'react';
 
 function App(): JSX.Element | null {
-  const Stack = createNativeStackNavigator<RootStackParamsList>();
+  const Stack = createNativeStackNavigator<AppScreensParamsList>();
 
   const [fontsLoaded] = useFonts({
     ManropeRegular,

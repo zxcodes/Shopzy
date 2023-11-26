@@ -4,7 +4,7 @@ import {
   HomeScreen,
   MoreScreen,
 } from '@app/screens';
-import {BottomScreensParamsList} from '@app/types';
+import {AppScreensParamsList} from '@app/types';
 import {AppColors, FontSizes, isAndroid} from '@app/utils';
 import {TAB_ICON_SIZE} from '@app/constants';
 import {
@@ -23,7 +23,7 @@ const screenOptions: BottomTabNavigationOptions = {
   headerShown: false,
 };
 
-const BottomTab = createBottomTabNavigator<BottomScreensParamsList>();
+const BottomTab = createBottomTabNavigator<AppScreensParamsList>();
 
 const options: BottomTabNavigationOptions = {
   tabBarHideOnKeyboard: true,
@@ -39,7 +39,7 @@ const options: BottomTabNavigationOptions = {
   },
 };
 
-const initialRouteName: keyof BottomScreensParamsList = 'HomeScreen';
+const initialRouteName: keyof AppScreensParamsList = 'HomeScreen';
 
 export default () => {
   return (

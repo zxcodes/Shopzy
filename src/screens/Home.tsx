@@ -7,7 +7,7 @@ import {
   Spacer,
 } from '@app/components';
 import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
-import {BottomScreensParamsList, ProductType} from '@app/types';
+import {AppScreensParamsList, ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
 import {SearchIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
@@ -15,10 +15,7 @@ import {useIsFocused} from '@react-navigation/native';
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
 import {ScrollView, StyleSheet, TextInput, View} from 'react-native';
 
-type HomeScreenProps = BottomTabScreenProps<
-  BottomScreensParamsList,
-  'HomeScreen'
->;
+type HomeScreenProps = BottomTabScreenProps<AppScreensParamsList, 'HomeScreen'>;
 
 export default ({navigation}: HomeScreenProps): JSX.Element => {
   const [productList, setProductList] = useState<ProductType[]>();
@@ -39,7 +36,7 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
   }, []);
 
   const horizontalBannerList = useMemo(() => {
-    if (!productList || productList.length === 0) {
+    if (!productList || !productList.length) {
       return undefined;
     }
 
@@ -108,7 +105,9 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
           <Spacer space={20} />
           <ProductCard
             onAddToCart={add => console.log(add)}
-            onPress={onP => console.log(onP)}
+            onPress={product =>
+              navigation.navigate('ProductDetails', {product})
+            }
             isFavorite={false}
             productDetails={productList ? productList[5] : undefined}
           />

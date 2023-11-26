@@ -1,6 +1,11 @@
+import {AppText} from '@app/components';
+import {MainContainer} from '@app/containers';
 import React from 'react';
-import {View} from 'react-native';
 
 export default () => {
-  return <View>ProductDetails</View>;
+  return (
+    <MainContainer>
+      <AppText>Nice details</AppText>
+    </MainContainer>
+  );
 };
