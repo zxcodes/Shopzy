@@ -1,3 +1,4 @@
+import {ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
 import {
   ActivityIndicator,
@@ -9,11 +10,9 @@ import {
   ViewStyle,
 } from 'react-native';
 
-export type ListItem = {id: number; url: string};
-
 type HorizontalBannerListProps = {
-  list: ListItem[] | undefined;
-  onPress?: (listItem: ListItem) => void;
+  list: ProductType[] | undefined;
+  onPress?: (product: ProductType) => void;
   style?: ViewStyle;
 };
 
@@ -34,7 +33,7 @@ export default ({
             onPress={() => onPress && onPress(item)}>
             <Image
               resizeMode="cover"
-              source={{uri: item.url}}
+              source={{uri: item.thumbnail}}
               style={styles.listItem}
             />
           </TouchableOpacity>

@@ -12,7 +12,7 @@ import {AppColors} from '@app/utils';
 import {SearchIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {useIsFocused} from '@react-navigation/native';
-import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import React, {useCallback, useEffect, useState} from 'react';
 import {
   FlatList,
   RefreshControl,
@@ -41,21 +41,13 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
     }
   }, []);
 
-  const horizontalBannerList = useMemo(() => {
-    if (!productList || !productList.length) {
-      return undefined;
-    }
-
-    return productList.map(product => ({
-      id: product.id,
-      url: product.thumbnail,
-    }));
-  }, [productList]);
+  const navigateToProductDetails = (product: ProductType) => {
+    navigation.navigate('ProductDetails', {product});
+  };
 
   const ListHeaderComponent = (
     <>
       <View style={styles.extendedHeader}>
-        <Spacer space={20} />
         <FlexContainer position="rowBetween" direction="row">
           <AppText
             style={{fontSize: 22}}
@@ -64,7 +56,7 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
             Hey, Rahul
           </AppText>
           <CartButtonWithIndicator
-            quantity={0}
+            quantity={10}
             onPress={() => navigation.navigate('CategoriesScreen')}
           />
         </FlexContainer>
@@ -94,14 +86,16 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
       </View>
       <Spacer space={27} />
       <HorizontalBannerList
-        list={horizontalBannerList}
-        onPress={item => alert(JSON.stringify(item))}
+        list={productList}
+        onPress={navigateToProductDetails}
       />
       <Spacer space={27} />
-      <PaddingContainer style={{paddingVertical: 0}}>
-        <AppText fontSize="extraLarge">Recommended</AppText>
-        <Spacer space={20} />
-      </PaddingContainer>
+      {productList?.length ? (
+        <PaddingContainer style={{paddingVertical: 0}}>
+          <AppText fontSize="extraLarge">Recommended</AppText>
+          <Spacer space={20} />
+        </PaddingContainer>
+      ) : null}
     </>
   );
 
@@ -132,11 +126,8 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
         renderItem={({item: product}) => {
           return (
             <ProductCard
-              // eslint-disable-next-line no-console
               onAddToCart={add => console.log(add)}
-              onPress={product =>
-                navigation.navigate('ProductDetails', {product})
-              }
+              onPress={navigateToProductDetails}
               isFavorite={false}
               productDetails={product}
             />

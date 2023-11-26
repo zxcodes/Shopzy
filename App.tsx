@@ -36,6 +36,7 @@ function App(): JSX.Element | null {
     contentStyle: {
       backgroundColor: AppColors.PureWhite,
     },
+    animation: 'slide_from_right',
   };
 
   return (

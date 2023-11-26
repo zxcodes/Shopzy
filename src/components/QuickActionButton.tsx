@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
   container: {
     height: isAndroid ? 40 : 36,
     width: isAndroid ? 40 : 36,
-    backgroundColor: AppColors.GreyLightest,
+    backgroundColor: AppColors.LightWhite,
     borderRadius: 100,
   },
 });

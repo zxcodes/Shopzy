@@ -1,6 +1,7 @@
-import {AppColors, isAndroid} from '@app/utils';
+import {AppColors} from '@app/utils';
+import {StatusBar} from 'expo-status-bar';
 import React, {PropsWithChildren} from 'react';
-import {StatusBar, ViewStyle} from 'react-native';
+import {ViewStyle} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
 import PaddingContainer from './PaddingContainer';
 
@@ -23,7 +24,7 @@ export default ({
         flex: fillHeight ? 1 : undefined,
         backgroundColor: backgroundColor || AppColors.PureWhite,
       }}>
-      <StatusBar barStyle={isAndroid ? 'light-content' : 'dark-content'} />
+      <StatusBar style="auto" backgroundColor={AppColors.PrimaryBlue} />
       <PaddingContainer
         style={{
           paddingVertical: 20,
