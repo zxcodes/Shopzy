@@ -1,4 +1,4 @@
-import {AppColors} from '@app/utils';
+import {AppColors, isAndroid} from '@app/utils';
 import {ArrowIcon} from '@assets/svg';
 import React from 'react';
 import {
@@ -33,7 +33,10 @@ export default ({onPress, selectedValue, title}: DropdownSelectorProps) => {
           <Spacer space={5} between />
           <ArrowIcon
             fill={AppColors.Grey}
-            style={{transform: [{rotate: '270deg'}]}}
+            style={{
+              transform: [{rotate: '270deg'}],
+              marginTop: isAndroid ? 3 : undefined,
+            }}
           />
         </View>
       </TouchableOpacity>

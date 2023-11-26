@@ -97,7 +97,7 @@ export default ({
             {isProductAddedToCart ? (
               <DoneIcon height={13} width={13} stroke={AppColors.PureWhite} />
             ) : (
-              <PlusIcon height={13} width={13} />
+              <PlusIcon height={13} width={13} fill={AppColors.PureWhite} />
             )}
           </QuickActionButton>
         </FlexContainer>

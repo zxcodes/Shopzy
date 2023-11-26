@@ -8,6 +8,7 @@ import HorizontalBannerList from './HorizontalBannerList';
 import ProductCard from './ProductCard';
 import StarRatingViewer from './StarRatingViewer';
 import ImageCarousel from './ImageCarousel';
+import CartProductQuantitySelector from './CartProductQuantitySelector';
 
 export {
   AppText,
@@ -20,4 +21,5 @@ export {
   ProductCard,
   StarRatingViewer,
   ImageCarousel,
+  CartProductQuantitySelector,
 };

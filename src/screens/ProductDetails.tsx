@@ -1,11 +1,11 @@
 import {
+  AppButton,
   AppText,
   CartButtonWithIndicator,
+  ImageCarousel,
   QuickActionButton,
   Spacer,
   StarRatingViewer,
-  ImageCarousel,
-  AppButton,
 } from '@app/components';
 import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';

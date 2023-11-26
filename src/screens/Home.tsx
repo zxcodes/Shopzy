@@ -149,7 +149,6 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
           const isProductInCart = store.cart.some(
             item => product.id === item?.product.id
           );
-
           return (
             <ProductCard
               isProductAddedToCart={isProductInCart}
