@@ -1,4 +1,4 @@
-import {AppText, Spacer} from '@app/components';
+import {AppText} from '@app/components';
 import ProductGridList from '@app/components/ProductGridList';
 import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';
@@ -45,7 +45,6 @@ export default ({navigation}: FavoritesScreenProps): JSX.Element => {
           <AppText fontSize="extraLarge">Favorites</AppText>
         </FlexContainer>
       </PaddingContainer>
-      <Spacer space={30} />
       {areFavoritesEmpty ? (
         <PaddingContainer style={styles.noItemsIndicator}>
           <AppText fontSize="extraLarge">
@@ -54,6 +53,7 @@ export default ({navigation}: FavoritesScreenProps): JSX.Element => {
         </PaddingContainer>
       ) : (
         <ProductGridList
+          style={{paddingTop: 20}}
           productList={
             store.favorites?.length
               ? store.favorites.map(favorite => ({
@@ -63,7 +63,7 @@ export default ({navigation}: FavoritesScreenProps): JSX.Element => {
               : []
           }
           onAddToCart={handleOnAddToCart}
-          onPress={navigateToProductDetails}
+          onProductPress={navigateToProductDetails}
         />
       )}
     </MainContainer>

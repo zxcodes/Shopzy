@@ -14,6 +14,7 @@ import {AppColors} from '@app/utils';
 import {
   showProductAddedToast,
   showProductRemovedToast,
+  showToast,
 } from '@app/utils/functions';
 import {ArrowIcon, HeartIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
@@ -24,6 +25,7 @@ import {
   RefreshControl,
   ScrollView,
   StyleSheet,
+  Vibration,
   View,
 } from 'react-native';
 
@@ -59,9 +61,9 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
   const [productDetails, setProductDetails] = useState<ProductType>();
   const isFocused = useIsFocused();
 
-  const isProductInCart = store.cart.some(
-    product => product.product.id === productDetails?.id
-  );
+  const isProductInCart = store.cart.length
+    ? store.cart.some(product => product.product.id === productDetails?.id)
+    : false;
 
   const getProductDetails = async (productId: number) => {
     if (productId) {
@@ -111,6 +113,21 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
     }
   }, [store.favorites.length, productDetails?.isFavorite]);
 
+  const handleOnFavorite = () => {
+    if (productDetails) {
+      if (isProductInFavorites) {
+        store.removeFromFavorites(productDetails.id);
+      } else {
+        store.addToFavorites(productDetails);
+        Vibration.vibrate(5);
+        showToast(
+          'Added to favorites',
+          `${productDetails.title} has been added to your favorites!`
+        );
+      }
+    }
+  };
+
   useEffect(() => {
     getProductDetails(productId);
   }, [isFocused, isProductInFavorites]);
@@ -154,17 +171,11 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
             <View>
               <View style={styles.favoriteButtonHolder}>
                 <QuickActionButton
-                  onPress={() => {
-                    if (isProductInFavorites) {
-                      store.removeFromFavorites(productDetails.id);
-                    } else {
-                      store.addToFavorites(productDetails);
-                    }
-                  }}
+                  onPress={handleOnFavorite}
                   style={styles.favoriteButton}>
                   <HeartIcon
-                    height={24}
-                    width={24}
+                    height={27}
+                    width={27}
                     stroke={
                       productDetails.isFavorite ? 'none' : AppColors.GreyDark
                     }

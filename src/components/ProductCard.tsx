@@ -49,7 +49,7 @@ const ProductImage = ({
     <LikeIcon
       style={{
         position: 'absolute',
-        ...(isValidImage ? {top: 10, left: 10} : {top: 0, right: 90}),
+        ...(isValidImage ? {top: 15, left: 15} : {top: 0, right: 90}),
       }}
       stroke={isFavorite ? 'none' : AppColors.GreyDark}
       fill={isFavorite ? AppColors.LightOrange : 'none'}

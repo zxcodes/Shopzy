@@ -7,13 +7,13 @@ import ProductCard from './ProductCard';
 interface ProductGridListProps extends FlatListProps<ProductType> {
   productList: ProductType[];
   onAddToCart: (product: ProductType, isProductInCart: boolean) => void;
-  onPress: (product: ProductType) => void;
+  onProductPress: (product: ProductType) => void;
 }
 
 export default ({
   productList,
   onAddToCart,
-  onPress,
+  onProductPress,
   ...remainingProps
 }: Omit<ProductGridListProps, 'renderItem' | 'data'>) => {
   const store = useCartStore();
@@ -34,7 +34,7 @@ export default ({
           <ProductCard
             isProductAddedToCart={isProductInCart}
             onAddToCart={() => onAddToCart(product, isProductInCart)}
-            onPress={() => onPress(product)}
+            onPress={() => onProductPress(product)}
             isFavorite={product.isFavorite || false}
             productDetails={product}
           />
