@@ -1,5 +1,4 @@
-import {AppText} from '@app/components';
-import ProductGridList from '@app/components/ProductGridList';
+import {AppText, ProductGridList} from '@app/components';
 import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';
 import {AppScreensParamsList, ProductType} from '@app/types';

@@ -4,8 +4,8 @@ import {
   DropdownSelector,
   HorizontalBannerList,
   Spacer,
+  ProductGridList,
 } from '@app/components';
-import ProductGridList from '@app/components/ProductGridList';
 import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';
 import {AppScreensParamsList, ProductType} from '@app/types';

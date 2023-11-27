@@ -101,6 +101,13 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
     }
   };
 
+  const handleOnBuyNow = () => {
+    if (productDetails) {
+      store.addToCart(productDetails, 1);
+      navigation.navigate('Cart');
+    }
+  };
+
   const isProductLoaded =
     productDetails &&
     !!productDetails?.id &&
@@ -202,12 +209,7 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
                   {isProductInCart ? 'Remove From Cart' : 'Add To Cart'}
                 </AppButton>
                 <Spacer space={20} between />
-                <AppButton
-                  onPress={() => {
-                    store.addToCart(productDetails, 1);
-                    navigation.navigate('Cart');
-                  }}
-                  style={{flex: 1}}>
+                <AppButton onPress={handleOnBuyNow} style={{flex: 1}}>
                   Buy Now
                 </AppButton>
               </FlexContainer>

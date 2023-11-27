@@ -9,6 +9,7 @@ import ProductCard from './ProductCard';
 import StarRatingViewer from './StarRatingViewer';
 import ImageCarousel from './ImageCarousel';
 import CartProductQuantitySelector from './CartProductQuantitySelector';
+import ProductGridList from './ProductGridList';
 
 export {
   AppText,
@@ -22,4 +23,5 @@ export {
   StarRatingViewer,
   ImageCarousel,
   CartProductQuantitySelector,
+  ProductGridList,
 };
