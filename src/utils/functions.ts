@@ -12,4 +12,15 @@ const showToast = (text1: string, text2?: string) => {
   });
 };
 
-export {showToast};
+const showProductRemovedToast = (productName: string) => {
+  showToast(
+    'Product Removed',
+    `${productName} has been removed from your cart!`
+  );
+};
+
+const showProductAddedToast = (productName: string) => {
+  showToast('Product Added', `${productName} has been added to your cart!`);
+};
+
+export {showToast, showProductAddedToast, showProductRemovedToast};

@@ -9,6 +9,7 @@ import {
 } from 'react-native';
 import AppText from './AppText';
 import Spacer from './Spacer';
+import {ACTIVE_BUTTON_OPACITY} from '@app/constants';
 
 type DropdownSelectorProps = {
   title: string;
@@ -26,6 +27,7 @@ export default ({onPress, selectedValue, title}: DropdownSelectorProps) => {
         {(title && title.toUpperCase()) || ''}
       </AppText>
       <TouchableOpacity
+        activeOpacity={ACTIVE_BUTTON_OPACITY}
         onPress={() => onPress && onPress(selectedValue)}
         style={{paddingVertical: 5}}>
         <View style={styles.dropdownButton}>

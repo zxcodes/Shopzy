@@ -5,6 +5,7 @@ import {
   QuickActionButton,
   Spacer,
 } from '@app/components';
+import {ACTIVE_BUTTON_OPACITY} from '@app/constants';
 import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';
 import {AppScreensParamsList} from '@app/types';
@@ -74,7 +75,9 @@ export default ({navigation}: CartScreenProps) => {
             <Spacer space={10} />
             {!isCartEmpty ? (
               <FlexContainer position="end">
-                <TouchableOpacity onPress={() => alert('Handle edit!')}>
+                <TouchableOpacity
+                  activeOpacity={ACTIVE_BUTTON_OPACITY}
+                  onPress={() => alert('Handle edit!')}>
                   <AppText color="PrimaryBlue">Edit</AppText>
                 </TouchableOpacity>
               </FlexContainer>

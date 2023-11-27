@@ -11,7 +11,10 @@ import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';
 import {AppScreensParamsList, ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
-import {showToast} from '@app/utils/functions';
+import {
+  showProductAddedToast,
+  showProductRemovedToast,
+} from '@app/utils/functions';
 import {ArrowIcon, HeartIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {useIsFocused} from '@react-navigation/native';
@@ -64,13 +67,16 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
     if (productId) {
       try {
         const res = await fetch(`https://dummyjson.com/products/${productId}`);
-        const data = await res.json();
+        const productData = await res.json();
 
-        if (Object.keys(data).length) {
-          const updatedProductDetails = {
-            ...data,
+        if (
+          Object.keys(productData).length &&
+          Object.hasOwn(productData, 'id')
+        ) {
+          const updatedProductDetails: ProductType = {
+            ...productData,
             isFavorite: store.favorites.some(
-              favorite => favorite.id === data.id
+              favorite => favorite.id === productData.id
             ),
           };
           setProductDetails(updatedProductDetails);
@@ -85,16 +91,10 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
     if (productDetails) {
       if (isProductInCart) {
         store.removeFromCart(productDetails.id);
-        showToast(
-          'Product removed from cart',
-          `${productDetails.title} has been removed from your cart!`
-        );
+        showProductRemovedToast(productDetails.title);
       } else {
+        showProductAddedToast(productDetails.title);
         store.addToCart(productDetails, 1);
-        showToast(
-          'Product added to cart',
-          `${productDetails.title} has been added to your cart!`
-        );
       }
     }
   };

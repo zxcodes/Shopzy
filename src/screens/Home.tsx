@@ -3,25 +3,22 @@ import {
   CartButtonWithIndicator,
   DropdownSelector,
   HorizontalBannerList,
-  ProductCard,
   Spacer,
 } from '@app/components';
+import ProductGridList from '@app/components/ProductGridList';
 import {FlexContainer, MainContainer, PaddingContainer} from '@app/containers';
 import {useCartStore} from '@app/store';
 import {AppScreensParamsList, ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
-import {showToast} from '@app/utils/functions';
+import {
+  showProductAddedToast,
+  showProductRemovedToast,
+} from '@app/utils/functions';
 import {SearchIcon} from '@assets/svg';
 import {BottomTabScreenProps} from '@react-navigation/bottom-tabs';
 import {useIsFocused} from '@react-navigation/native';
 import React, {useEffect, useState} from 'react';
-import {
-  FlatList,
-  RefreshControl,
-  StyleSheet,
-  TextInput,
-  View,
-} from 'react-native';
+import {RefreshControl, StyleSheet, TextInput, View} from 'react-native';
 
 type HomeScreenProps = BottomTabScreenProps<AppScreensParamsList, 'HomeScreen'>;
 
@@ -62,15 +59,9 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
   ) => {
     if (isProductInCart) {
       store.removeFromCart(product.id);
-      showToast(
-        'Product removed from cart',
-        `${product.title} has been removed from your cart!`
-      );
+      showProductRemovedToast(product.title);
     } else {
-      showToast(
-        'Product added to cart',
-        `${product.title} has been added to your cart!`
-      );
+      showProductAddedToast(product.title);
       store.addToCart(product, 1);
     }
   };
@@ -138,7 +129,9 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
       style={styles.container}
       backgroundColor={AppColors.PureWhite}
       fillHeight>
-      <FlatList
+      <ProductGridList
+        ListHeaderComponent={ListHeaderComponent}
+        productList={productList?.length ? productList : []}
         refreshControl={
           <RefreshControl
             refreshing={productList?.length === 0}
@@ -146,27 +139,8 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
             tintColor={AppColors.PrimaryBlue}
           />
         }
-        contentContainerStyle={{paddingBottom: 50}}
-        initialNumToRender={10}
-        showsVerticalScrollIndicator={false}
-        keyExtractor={product => product.id.toString()}
-        numColumns={2}
-        data={productList}
-        ListHeaderComponent={ListHeaderComponent}
-        renderItem={({item: product}) => {
-          const isProductInCart = store.cart.some(
-            item => product.id === item?.product.id
-          );
-          return (
-            <ProductCard
-              isProductAddedToCart={isProductInCart}
-              onAddToCart={() => handleOnAddToCart(product, isProductInCart)}
-              onPress={navigateToProductDetails}
-              isFavorite={product.isFavorite || false}
-              productDetails={product}
-            />
-          );
-        }}
+        onAddToCart={handleOnAddToCart}
+        onPress={navigateToProductDetails}
       />
     </MainContainer>
   );

@@ -1,5 +1,5 @@
 import {AppText, Spacer} from '@app/components';
-import {TAB_ICON_SIZE} from '@app/constants';
+import {ACTIVE_BUTTON_OPACITY, TAB_ICON_SIZE} from '@app/constants';
 import {FlexContainer} from '@app/containers';
 import {
   CategoriesScreen,
@@ -79,6 +79,7 @@ const BottomTabBar = ({state, navigation}: BottomTabBarProps) => {
         };
         return (
           <TouchableOpacity
+            activeOpacity={ACTIVE_BUTTON_OPACITY}
             key={route.key}
             onPress={onPress}
             style={styles.tabIcon}>

@@ -1,3 +1,4 @@
+import {ACTIVE_BUTTON_OPACITY} from '@app/constants';
 import {ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
 import {
@@ -29,6 +30,7 @@ export default ({
       {list.map(item => {
         return (
           <TouchableOpacity
+            activeOpacity={ACTIVE_BUTTON_OPACITY}
             key={item.id}
             onPress={() => onPress && onPress(item)}>
             <Image

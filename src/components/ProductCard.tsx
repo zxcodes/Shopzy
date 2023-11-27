@@ -1,4 +1,7 @@
-import {PRODUCT_BORDER_RADIUS} from '@app/constants';
+import {
+  ACTIVE_BUTTON_OPACITY,
+  PRODUCT_CARD_BORDER_RADIUS,
+} from '@app/constants';
 import {FlexContainer, PaddingContainer} from '@app/containers';
 import {ProductType} from '@app/types';
 import {AppColors} from '@app/utils';
@@ -38,9 +41,9 @@ const ProductImage = ({
   isFavorite,
 }: ProductImageProps) => (
   <ImageBackground
-    resizeMode="stretch"
-    borderTopRightRadius={PRODUCT_BORDER_RADIUS}
-    borderTopLeftRadius={PRODUCT_BORDER_RADIUS}
+    resizeMode="cover"
+    borderTopRightRadius={PRODUCT_CARD_BORDER_RADIUS}
+    borderTopLeftRadius={PRODUCT_CARD_BORDER_RADIUS}
     source={source}
     style={style}>
     <LikeIcon
@@ -70,6 +73,7 @@ export default ({
 
   return (
     <TouchableOpacity
+      activeOpacity={ACTIVE_BUTTON_OPACITY}
       onPress={() => productDetails && onPress(productDetails)}
       style={{
         ...styles.productCard,
@@ -112,7 +116,7 @@ export default ({
 const styles = StyleSheet.create({
   productCard: {
     flex: 1,
-    borderRadius: PRODUCT_BORDER_RADIUS,
+    borderRadius: PRODUCT_CARD_BORDER_RADIUS,
     backgroundColor: AppColors.LightWhite,
     marginHorizontal: 17,
     marginBottom: 20,

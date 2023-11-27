@@ -9,6 +9,7 @@ import QuickActionButton from './QuickActionButton';
 import {PlusIcon} from '@assets/svg';
 import {useCartStore} from '@app/store';
 import {showToast} from '@app/utils/functions';
+import ProductFallbackImage from '@assets/images/ProductFallbackImage.png';
 
 type CartProductQuantitySelectorProps = {
   isLastProduct?: boolean; // To hide bottom border for the last item in list.
@@ -21,8 +22,7 @@ export default ({
 }: CartProductQuantitySelectorProps) => {
   const store = useCartStore();
 
-  const cartItem = (store &&
-    store.cart.length > 0 &&
+  const cartItem = (store.cart.length &&
     store.cart.find(item => item.product.id === productDetails.id)) || {
     quantity: 0,
   };
@@ -48,7 +48,11 @@ export default ({
       <FlexContainer direction="row" position="rowBetween">
         <FlexContainer direction="row" position="start">
           <Image
-            source={{uri: productDetails.thumbnail}}
+            source={
+              productDetails.thumbnail
+                ? {uri: productDetails.thumbnail}
+                : ProductFallbackImage
+            }
             style={{height: 40, width: 40}}
             borderRadius={10}
           />
@@ -57,7 +61,7 @@ export default ({
             <AppText style={{width: 200}} fontFamily="ManropeMedium">
               {productDetails.title}
             </AppText>
-            <Spacer space={4} />
+            <Spacer space={3} />
             <AppText fontFamily="ManropeRegular">{`$${
               productDetails.price || 0
             }`}</AppText>

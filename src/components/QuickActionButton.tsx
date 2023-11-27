@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, TouchableOpacity, ViewStyle} from 'react-native';
 import {FlexContainer} from '@app/containers';
 import {AppColors, isAndroid} from '@app/utils';
+import {ACTIVE_BUTTON_OPACITY} from '@app/constants';
 
 type QuickActionButtonProps = {
   children: React.ReactNode;
@@ -19,7 +20,10 @@ export default ({
   noBackground,
 }: QuickActionButtonProps) => {
   return (
-    <TouchableOpacity onPress={onPress} disabled={disabled} activeOpacity={0.5}>
+    <TouchableOpacity
+      onPress={onPress}
+      disabled={disabled}
+      activeOpacity={ACTIVE_BUTTON_OPACITY}>
       <FlexContainer
         position="center"
         style={{

@@ -1,3 +1,4 @@
+import {ACTIVE_BUTTON_OPACITY} from '@app/constants';
 import {AppColors, AppFonts, FontSizes} from '@app/utils';
 import {
   GestureResponderEvent,
@@ -47,7 +48,7 @@ export default ({
   const background = AppColors[backgroundColor as keyof typeof AppColors];
   return (
     <TouchableOpacity
-      activeOpacity={0.8}
+      activeOpacity={ACTIVE_BUTTON_OPACITY}
       onPress={onPress}
       style={{
         ...styles.button,
