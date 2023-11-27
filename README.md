@@ -55,14 +55,11 @@ yarn start
 
 - Expo Go iOS App: https://apps.apple.com/us/app/expo-go/id982107779
 
-## 2. Commit rules:
+# What Could've Been Better
 
-- Lint files before committing changes.
+These are the things that could have been done better, but due to limitations of the time frame, weren't possible.
 
-```
-yarn lint
-```
-
-## IMPORTANT:
-
-- Commit messages should be descriptive & task-related. Don't do: (changes done, fixed bug, etc.)
+- Could have used reactQuery for data-fetching instead of classic fetch on mount/focus.
+- Could have implemented search in products.
+- Could have done some transitions on cart updates.
+- Could have achieved exact bottom bar curve on each active tab using SVGs.
