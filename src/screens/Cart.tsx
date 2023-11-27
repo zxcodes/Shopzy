@@ -40,6 +40,15 @@ export default ({navigation}: CartScreenProps) => {
   const store = useCartStore();
 
   const isCartEmpty = store.cart.length === 0;
+  const DELIVERY_COST = 20.45;
+
+  const getTotalCartPrice = (): number => {
+    const totalCartPrice = store.cart.reduce((total, item) => {
+      return total + item.quantity * item.product.price;
+    }, 0);
+
+    return totalCartPrice;
+  };
 
   return (
     <MainContainer style={{paddingHorizontal: 0}} fillHeight>
@@ -90,9 +99,15 @@ export default ({navigation}: CartScreenProps) => {
       {!isCartEmpty ? (
         <PaddingContainer style={styles.checkoutView}>
           <Spacer space={10} />
-          <RenderOrderDetailsText title="Subtotal" value={120.84} />
-          <RenderOrderDetailsText title="Delivery" value={20.45} />
-          <RenderOrderDetailsText title="Total" value={140} />
+          <RenderOrderDetailsText
+            title="Subtotal"
+            value={getTotalCartPrice()}
+          />
+          <RenderOrderDetailsText title="Delivery" value={DELIVERY_COST} />
+          <RenderOrderDetailsText
+            title="Total"
+            value={getTotalCartPrice() + DELIVERY_COST}
+          />
           <Spacer space={30} />
           <AppButton onPress={() => alert('Handle checkout!')}>
             Proceed To checkout

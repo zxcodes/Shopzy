@@ -107,10 +107,13 @@ export default ({navigation}: HomeScreenProps): JSX.Element => {
         </FlexContainer>
       </View>
       <Spacer space={27} />
+
+      {/* Showing only 5 products on purpose. */}
       <HorizontalBannerList
-        list={productList}
+        list={productList?.slice(0, 5)}
         onPress={navigateToProductDetails}
       />
+
       <Spacer space={27} />
       {productList?.length ? (
         <PaddingContainer style={{paddingVertical: 0}}>

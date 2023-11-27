@@ -203,7 +203,10 @@ export default ({navigation, route}: ProductDetailsScreenProps) => {
                 </AppButton>
                 <Spacer space={20} between />
                 <AppButton
-                  onPress={() => store.addToFavorites(productDetails)}
+                  onPress={() => {
+                    store.addToCart(productDetails, 1);
+                    navigation.navigate('Cart');
+                  }}
                   style={{flex: 1}}>
                   Buy Now
                 </AppButton>
