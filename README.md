@@ -62,12 +62,3 @@ yarn start
 - Expo Go Android App: https://play.google.com/store/apps/details?id=host.exp.exponent
 
 - Expo Go iOS App: https://apps.apple.com/us/app/expo-go/id982107779
-
-# What Could've Been Better
-
-These are the things that could have been done better, but due to limitations of the time frame, weren't possible.
-
-- Could have used reactQuery for data-fetching instead of classic fetch on mount/focus.
-- Could have implemented search in products.
-- Could have done some transitions on cart updates.
-- Could have achieved exact bottom bar curve on each active tab using SVGs.
